@@ -1,0 +1,9 @@
+<button
+  (click)="toggleTheme()"
+  class="btn btn-square"
+  data-testid="btn-toggle-theme"
+>
+  <span class="material-symbols-outlined" [attr.data-testid]="'theme-' + theme">
+    {{ theme === 'cupcake' ? 'light_mode' : 'dark_mode' }}
+  </span>
+</button>
