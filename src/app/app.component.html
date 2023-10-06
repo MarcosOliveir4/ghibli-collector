@@ -1,6 +1,19 @@
-<nav
-  class="flex items-center justify-between bg-secondary-content p-5 text-neutral-content"
->
-  <h1>{{ title }}</h1>
-  <app-toggle-theme></app-toggle-theme>
-</nav>
+<div class="box-content h-screen">
+  <nav
+    class="flex items-center justify-between bg-secondary-content p-5 text-neutral-content"
+  >
+    <div class="container mx-auto">
+      <h1 class="text-2xl">{{ title }}</h1>
+    </div>
+  </nav>
+  <section class="container mx-auto p-5">
+    <div class="grid grid-cols-1 gap-5 md:grid-cols-4">
+      <app-ghibli-card
+        *ngFor="let film of ghibliFilms"
+        [img]="film.image"
+        [title]="film.title"
+        [description]="film.description"
+      ></app-ghibli-card>
+    </div>
+  </section>
+</div>
