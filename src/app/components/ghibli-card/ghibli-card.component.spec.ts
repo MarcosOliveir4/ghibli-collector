@@ -19,6 +19,19 @@ const sut = async () => {
 };
 
 describe('GhibliCardComponent', () => {
+  beforeAll(() => {
+    const preconnectLink = document.createElement('link');
+    preconnectLink.rel = 'preconnect';
+    preconnectLink.href = 'https://image.tmdb.org';
+    document.head.appendChild(preconnectLink);
+  });
+
+  afterAll(() => {
+    const preconnectLink = document.querySelector('link[rel="preconnect"]');
+    if (preconnectLink) {
+      preconnectLink.remove();
+    }
+  });
   it('should render card', async () => {
     await sut();
     const card = screen.getByTestId('ghibli-card');

@@ -6,14 +6,5 @@
       <h1 class="text-2xl">{{ title }}</h1>
     </div>
   </nav>
-  <section class="container mx-auto p-5">
-    <div class="grid grid-cols-1 gap-5 md:grid-cols-4">
-      <app-ghibli-card
-        *ngFor="let film of ghibliFilms"
-        [img]="film.image"
-        [title]="film.title"
-        [description]="film.description"
-      ></app-ghibli-card>
-    </div>
-  </section>
+  <router-outlet></router-outlet>
 </div>
