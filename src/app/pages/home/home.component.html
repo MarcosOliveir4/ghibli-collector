@@ -6,6 +6,8 @@
         [img]="film.image"
         [title]="film.title"
         [description]="film.description"
+        [id]="film.id"
+        (handleClick)="handleCardClick($event)"
       ></app-ghibli-card>
     </div>
   </ng-container>

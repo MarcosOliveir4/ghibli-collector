@@ -12,10 +12,17 @@
         class="line-clamp-3 leading-relaxed"
         [textContent]="description"
       ></p>
-      <button class="btn btn-ghost w-full">Mais Detalhes</button>
+      <button
+        class="btn btn-ghost w-full"
+        (click)="handleCardClick()"
+        data-testid="ghibli-card-button"
+      >
+        more details
+      </button>
     </div>
   </div>
   <img
+    data-testid="ghibli-card-img"
     [ngSrc]="img"
     [alt]="title"
     [width]="600"

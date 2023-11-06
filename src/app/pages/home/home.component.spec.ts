@@ -3,6 +3,8 @@ import { HomeComponent } from './home.component';
 import { of } from 'rxjs';
 import { GhibliApiService } from '../../services/ghibli-api/ghibli-api.service';
 import { GhibliCardComponent } from '../../components';
+import userEvent from '@testing-library/user-event';
+import { Router } from '@angular/router';
 
 const mockFilms = [
   {
@@ -106,10 +108,17 @@ const ghibliApiServiceMock = {
   getFilms: jest.fn(() => of(mockFilms))
 };
 
+const mockRouter = {
+  navigate: jest.fn()
+};
+
 const sut = async () => {
   return await render(HomeComponent, {
     imports: [GhibliCardComponent],
-    providers: [{ provide: GhibliApiService, useValue: ghibliApiServiceMock }]
+    providers: [
+      { provide: GhibliApiService, useValue: ghibliApiServiceMock },
+      { provide: Router, useValue: mockRouter }
+    ]
   });
 };
 describe('HomeComponent', () => {
@@ -148,5 +157,20 @@ describe('HomeComponent', () => {
     const { fixture } = await sut();
     fixture.componentInstance.ngOnDestroy();
     expect(fixture.componentInstance.subscriptionGhibliFilms.closed).toBe(true);
+  });
+  it('should emit event on button click and navigate to details screen', async () => {
+    const { fixture } = await sut();
+    const button = screen.getAllByTestId('ghibli-card-button')[0];
+    const handleCardClickSpy = jest.spyOn(
+      fixture.componentInstance,
+      'handleCardClick'
+    );
+    await userEvent.click(button);
+    expect(handleCardClickSpy).toHaveBeenCalled();
+    expect(handleCardClickSpy).toHaveBeenCalledTimes(1);
+    expect(mockRouter.navigate).toHaveBeenCalledWith([
+      '/details',
+      mockFilms[0].id
+    ]);
   });
 });

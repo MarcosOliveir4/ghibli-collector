@@ -43,5 +43,19 @@ describe('GhibliApiService', () => {
 
       req.flush(mockFilms);
     });
+    it('should retrieve film by id from the API', () => {
+      const mockFilms = { title: 'Film 1' };
+
+      service.getFilmById('01').subscribe((films) => {
+        expect(films).toEqual(mockFilms);
+      });
+
+      const req = httpTestingController.expectOne(
+        `${environment.url_api}/films/01`
+      );
+      expect(req.request.method).toEqual('GET');
+
+      req.flush(mockFilms);
+    });
   });
 });

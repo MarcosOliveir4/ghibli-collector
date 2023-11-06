@@ -1,11 +1,21 @@
 import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
+import {
+  provideRouter,
+  RouterModule,
+  Routes,
+  withComponentInputBinding
+} from '@angular/router';
 
 const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
   {
     path: 'home',
     loadChildren: () => import('./home/home.module').then((m) => m.HomeModule)
+  },
+  {
+    path: 'details/:id',
+    loadComponent: () =>
+      import('./details/details.component').then((m) => m.DetailsComponent)
   }
 ];
 

@@ -1,6 +1,7 @@
 import { GhibliCardComponent } from './ghibli-card.component';
 import { render, screen } from '@testing-library/angular';
 import { NgOptimizedImage } from '@angular/common';
+import userEvent from '@testing-library/user-event';
 
 const defaultProperties = {
   title: 'Castle in the Sky',
@@ -48,5 +49,21 @@ describe('GhibliCardComponent', () => {
       'ghibli-card-description'
     ).textContent;
     expect(description).toBe(defaultProperties.description);
+  });
+  it('should render image correct', async () => {
+    await sut();
+    const img = screen.getByTestId('ghibli-card-img');
+    expect(img).toHaveAttribute('src', defaultProperties.img);
+  });
+  it('should emitter event when click in button', async () => {
+    const { fixture } = await sut();
+    const button = screen.getByTestId('ghibli-card-button');
+    const emitterEventSpy = jest.spyOn(
+      fixture.componentInstance,
+      'handleCardClick'
+    );
+    await userEvent.click(button);
+    expect(emitterEventSpy).toHaveBeenCalled();
+    expect(emitterEventSpy).toHaveBeenCalledTimes(1);
   });
 });

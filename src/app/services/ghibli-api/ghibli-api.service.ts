@@ -14,4 +14,8 @@ export class GhibliApiService {
   public getFilms(): Observable<GetFilms[]> {
     return this.httpClient.get<GetFilms[]>(`${this.baseUrl}/films`);
   }
+
+  public getFilmById(id: string): Observable<GetFilms> {
+    return this.httpClient.get<GetFilms>(`${this.baseUrl}/films/${id}`);
+  }
 }

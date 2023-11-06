@@ -1,0 +1,66 @@
+<section class="container mx-auto p-5" data-testid="details-component">
+  <button (click)="goBack()" class="btn" data-testid="btn-back-to-home">
+    Back to home
+  </button>
+
+  <div *ngIf="!loadingFilm; else loading">
+    <div class="pt-5">
+      <div class="flex gap-5">
+        <img
+          class="rounded-lg"
+          [ngSrc]="film.image"
+          [alt]="film.title"
+          [width]="300"
+          [height]="400"
+          [priority]="true"
+        />
+        <div class="flex flex-col gap-3">
+          <h1 class="flex gap-5 text-3xl font-bold">
+            {{ film.title }}
+            <!--            <img-->
+            <!--              [ngSrc]="'assets/svg/heart.svg'"-->
+            <!--              [width]="25"-->
+            <!--              [height]="25"-->
+            <!--              alt="heart"-->
+            <!--            />-->
+            <img
+              [ngSrc]="'assets/svg/heart-fill.svg'"
+              [width]="25"
+              [height]="25"
+              loading="auto"
+              alt="heart-fill"
+            />
+          </h1>
+          <div class="flex gap-5">
+            <span class="badge badge-neutral flex justify-center gap-1">
+              <span class="material-symbols-outlined text-sm"> star_rate </span>
+
+              {{ film.rt_score }}/100</span
+            >
+            <span class="badge badge-neutral flex justify-center gap-1">
+              <span class="material-symbols-outlined text-sm">
+                calendar_month
+              </span>
+              {{ film.release_date }}</span
+            >
+            <span class="badge badge-neutral flex justify-center gap-1">
+              <span class="material-symbols-outlined text-sm"> schedule </span
+              >{{ film.running_time | minutosParaHoras }}</span
+            >
+          </div>
+          <p class="text-gray-500">{{ film.description }}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<ng-template #loading>
+  <section class="container mx-auto p-10">
+    <div class="flex flex-col items-center justify-center">
+      <p class="flex items-end gap-1">
+        carregando<span class="loading loading-dots loading-xs"></span>
+      </p>
+    </div>
+  </section>
+</ng-template>

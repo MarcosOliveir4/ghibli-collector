@@ -6,6 +6,7 @@ import { AppComponent } from './app.component';
 import { ComponentsModule } from './components/components.module';
 import { GhibliCardComponent } from './components';
 import { ServicesModule } from './services/services.module';
+import { PipeModule } from './pipe/pipe.module';
 
 @NgModule({
   declarations: [AppComponent],
@@ -14,7 +15,8 @@ import { ServicesModule } from './services/services.module';
     AppRoutingModule,
     ComponentsModule,
     GhibliCardComponent,
-    ServicesModule
+    ServicesModule,
+    PipeModule
   ],
   providers: [],
   bootstrap: [AppComponent]
