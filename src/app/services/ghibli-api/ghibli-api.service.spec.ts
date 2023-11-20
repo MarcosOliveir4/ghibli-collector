@@ -18,6 +18,7 @@ describe('GhibliApiService', () => {
 
     service = TestBed.inject(GhibliApiService);
     httpTestingController = TestBed.inject(HttpTestingController);
+    localStorage.clear();
   });
 
   afterEach(() => {
@@ -56,6 +57,35 @@ describe('GhibliApiService', () => {
       expect(req.request.method).toEqual('GET');
 
       req.flush(mockFilms);
+    });
+    it('should retrieve films liked from the localstorage', () => {
+      const mockFilms = ['01', '02'];
+      localStorage.setItem('filmsLiked', JSON.stringify(mockFilms));
+
+      const filmsLiked = service.getFilmsLiked();
+      expect(filmsLiked).toEqual(mockFilms);
+    });
+    it('should set films liked in the localstorage', () => {
+      const mockFilms = ['01', '02'];
+      service.setFilmsLiked('01');
+      service.setFilmsLiked('02');
+      const filmsLiked = service.getFilmsLiked();
+      expect(filmsLiked).toEqual(mockFilms);
+    });
+    it('should not set film already added', () => {
+      const mockFilms = ['01'];
+      service.setFilmsLiked('01');
+      service.setFilmsLiked('01');
+      const filmsLiked = service.getFilmsLiked();
+      expect(filmsLiked).toEqual(mockFilms);
+    });
+    it('should remove films liked in the localstorage', () => {
+      const mockFilms = ['01'];
+      service.setFilmsLiked('01');
+      service.setFilmsLiked('02');
+      service.removeFilmsLiked('02');
+      const filmsLiked = service.getFilmsLiked();
+      expect(filmsLiked).toEqual(mockFilms);
     });
   });
 });

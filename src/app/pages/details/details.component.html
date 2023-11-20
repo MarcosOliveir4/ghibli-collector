@@ -2,10 +2,9 @@
   <button (click)="goBack()" class="btn" data-testid="btn-back-to-home">
     Back to home
   </button>
-
   <div *ngIf="!loadingFilm; else loading">
     <div class="pt-5">
-      <div class="flex gap-5">
+      <div class="flex flex-col gap-5 md:flex-row">
         <img
           class="rounded-lg"
           [ngSrc]="film.image"
@@ -14,23 +13,16 @@
           [height]="400"
           [priority]="true"
         />
-        <div class="flex flex-col gap-3">
-          <h1 class="flex gap-5 text-3xl font-bold">
-            {{ film.title }}
-            <!--            <img-->
-            <!--              [ngSrc]="'assets/svg/heart.svg'"-->
-            <!--              [width]="25"-->
-            <!--              [height]="25"-->
-            <!--              alt="heart"-->
-            <!--            />-->
-            <img
-              [ngSrc]="'assets/svg/heart-fill.svg'"
-              [width]="25"
-              [height]="25"
-              loading="auto"
-              alt="heart-fill"
-            />
-          </h1>
+        <div class="flex flex-col gap-2">
+          <div>
+            <h1 class="flex items-center text-3xl font-bold">
+              {{ film.title }}
+              <app-ghibli-toggle-like
+                [liked]="filmLiked"
+                (toggleLike)="toggleLike()"
+              ></app-ghibli-toggle-like>
+            </h1>
+          </div>
           <div class="flex gap-5">
             <span class="badge badge-neutral flex justify-center gap-1">
               <span class="material-symbols-outlined text-sm"> star_rate </span>
@@ -48,7 +40,7 @@
               >{{ film.running_time | minutosParaHoras }}</span
             >
           </div>
-          <p class="text-gray-500">{{ film.description }}</p>
+          <p class="text-justify text-gray-500">{{ film.description }}</p>
         </div>
       </div>
     </div>

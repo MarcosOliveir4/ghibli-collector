@@ -1,0 +1,14 @@
+<button
+  (click)="onToggleLike()"
+  class="btn btn-circle btn-ghost sm:btn-sm md:btn-md"
+  data-testid="ghibli-button-like"
+>
+  <img
+    [ngSrc]="liked ? 'assets/svg/heart-fill.svg' : 'assets/svg/heart.svg'"
+    [width]="20"
+    [height]="20"
+    loading="auto"
+    [alt]="liked ? 'heart-fill' : 'heart'"
+    data-testid="ghibli-button-like-icon"
+  />
+</button>

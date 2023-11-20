@@ -43,7 +43,8 @@ const mockFilm = {
 };
 
 const ghibliApiServiceMock = {
-  getFilmById: jest.fn(() => of(mockFilm))
+  getFilmById: jest.fn(() => of(mockFilm)),
+  getFilmsLiked: jest.fn().mockReturnValue([])
 };
 
 const mockRouter = {
